@@ -4,21 +4,27 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
    <modelVersion>4.0.0</modelVersion>
-   <groupId>default</groupId>
-   <artifactId>mule-module-comm</artifactId>
+   <groupId>org.mule.transports</groupId>
+   <artifactId>mule-transport-comm</artifactId>
    <packaging>jar</packaging>
-   <name>Mule Comm Module</name>
+   <name>Mule Communications Transport</name>
    <version>1.0-SNAPSHOT</version>
-   <description>Comm Transport</description>
+   <description>Provide support for connecting mule to Communication ports</description>
 
 <properties>
         <mule.version>2.1.2</mule.version>
+		<domainName>mule-transport-comm</domainName>
+		<shortId>COMM</shortId>
         <!-- Tools properties -->
         <eclipsePluginVersion>2.5</eclipsePluginVersion>
         <vmtype>org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType</vmtype>
         <jdk5Name>jdk5</jdk5Name>
         <jdk.version>1.5</jdk.version>
     </properties>
+	<organization>
+		<name>Skywide Network Technology Limited</name>
+		<url>http://www.skywidetech.com</url>
+	</organization>
 
     <build>
         <plugins>
@@ -159,6 +165,16 @@
             <artifactId>mule-transport-vm</artifactId>
             <version>${mule.version}</version>
         </dependency>
+		<dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-tcp</artifactId>
+            <version>${mule.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-soap</artifactId>
+            <version>${mule.version}</version>
+        </dependency>
                 <!-- Mule Modules -->
                 <dependency>
             <groupId>org.mule.modules</groupId>
@@ -184,6 +200,21 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+		  <groupId>javax.comm</groupId>
+		  <artifactId>comm</artifactId>
+		  <version>2.0.3</version>
+		</dependency>
+		<dependency>
+		  <groupId>jamod</groupId>
+		  <artifactId>jamod</artifactId>
+		  <version>1.2rc1</version>
+		</dependency>
+		<dependency>
+		  <groupId>commons-validator</groupId>
+		  <artifactId>commons-validator</artifactId>
+		  <version>1.2.0</version>
+		</dependency>
     </dependencies>
 
         <!-- Mule Forge Configuration -->
@@ -193,10 +224,10 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:svn:http://svn.muleforge.org/comm/</connection>
-        <developerConnection>scm:svn:https://svn.muleforge.org/comm/</developerConnection>
+        <connection>scm:svn:http://svn.muleforge.org/mule-transport-comm/</connection>
+        <developerConnection>scm:svn:https://svn.muleforge.org/mule-transport-comm/</developerConnection>
         <tag>HEAD</tag>
-        <url>http://svn.comm.muleforge.org/</url>
+        <url>http://svn.mule-transport-comm.muleforge.org/</url>
     </scm>
 
 
@@ -209,20 +240,27 @@
     <distributionManagement>
         <repository>
             <id>muleforge.webdav.releases</id>
-            <url>dav:https://dav.muleforge.org/repository/comm/</url>
+            <url>dav:https://dav.muleforge.org/repository/${domainName}/</url>
         </repository>
         <snapshotRepository>
             <id>muleforge.webdav.snapshots</id>
-            <url>dav:https://dav.muleforge.org/snapshots.repository/comm/</url>
+            <url>dav:https://dav.muleforge.org/snapshots.repository/${domainName}/</url>
         </snapshotRepository>
         <site>
             <id>muleforge.webdav.sites</id>
-            <url>dav:https://dav.muleforge.org/comm/</url>
+            <url>dav:https://dav.muleforge.org/${domainName}/maven</url>
         </site>
     </distributionManagement>
 
     <!-- End of MuleForge Configuration -->
         <repositories>
+		<repository>
+            <id>skywidetech-repo</id>
+            <name>Skywidetech Repository</name>
+            <url>http://repository.skywidetech.com/maven2/</url>
+            <layout>default</layout>
+        </repository>
+		
         <repository>
             <id>muleforge-repo</id>
             <name>MuleForge Repository</name>
@@ -243,7 +281,7 @@
             -->
             <id>comm-deps</id>
             <name>Comm Dependencies</name>
-            <url>http://dist.muleforge.org/mule-module-comm/dependencies/maven2</url>
+            <url>http://dist.muleforge.org/mule-transport-comm/dependencies/maven2</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
